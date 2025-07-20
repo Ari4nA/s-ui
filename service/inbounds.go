@@ -274,7 +274,9 @@ func (s *InboundService) fetchUsers(db *gorm.DB, inboundType string, condition s
 	}
 	var usersJson []json.RawMessage
 	for _, user := range users {
-		if inboundType == "vless" && inbound["tls"] == nil {
+		// ✅✅✅ تغییر در این قسمت اعمال شده است ✅✅✅
+		// شرط مربوط به TLS حذف شد تا برای همه کانفیگ‌های VLESS این جایگزینی انجام شود
+		if inboundType == "vless" {
 			user = strings.Replace(user, "xtls-rprx-vision", "", -1)
 		}
 		usersJson = append(usersJson, json.RawMessage(user))
